@@ -1,0 +1,94 @@
+import { motion } from 'framer-motion'
+
+const easing = [0.22, 1, 0.36, 1]
+
+const includes = [
+  'Diagnóstico bucal completo',
+  'Plano de tratamento personalizado',
+  'Sem compromisso',
+]
+
+const CheckFilled = () => (
+  <span className="w-6 h-6 rounded-full bg-brand-cta flex items-center justify-center flex-shrink-0">
+    <svg width="10" height="8" viewBox="0 0 10 8" fill="none">
+      <path d="M1 4L3.5 6.5L9 1" stroke="#EAEAE5" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  </span>
+)
+
+export default function OfferSection() {
+  return (
+    <section id="agendamento" className="bg-brand-detail/15 py-20">
+      <div className="max-w-7xl mx-auto px-5 md:px-10 lg:px-16">
+        <div className="max-w-3xl mx-auto">
+
+          {/* Heading */}
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-80px' }}
+            transition={{ duration: 0.7, ease: easing }}
+            className="text-center mb-10"
+          >
+            <p className="font-dm text-xs text-brand-contrast font-semibold tracking-[0.35em] uppercase mb-4">
+              Agendamento
+            </p>
+            <h2 className="font-playfair text-3xl md:text-4xl lg:text-5xl font-bold text-brand-title leading-tight">
+              Avaliação Odontológica
+              <br />
+              <em className="font-light text-brand-cta">Personalizada</em>
+            </h2>
+          </motion.div>
+
+          {/* Offer card */}
+          <motion.div
+            initial={{ opacity: 0, y: 28 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-80px' }}
+            transition={{ duration: 0.75, ease: easing, delay: 0.1 }}
+            className="bg-[#EAEAE5] border border-brand-section rounded-2xl p-6 md:p-14 relative shadow-warm-md"
+          >
+            {/* Corner accents */}
+            <div className="absolute top-5 right-5 w-14 h-14 border-t border-r border-brand-cta/20 rounded-tr-xl pointer-events-none" />
+            <div className="absolute bottom-5 left-5 w-14 h-14 border-b border-l border-brand-cta/20 rounded-bl-xl pointer-events-none" />
+
+            {/* Intro text */}
+            <p className="font-dm text-sm text-brand-body/90 leading-relaxed mb-10 max-w-xl mx-auto text-center font-light">
+              Consulta completa com a Dra. Laura Gehlen — entendemos seus
+              objetivos e elaboramos um plano exclusivo, sem compromisso.
+            </p>
+
+            {/* Includes list */}
+            <div className="space-y-4 max-w-sm mx-auto mb-12">
+              {includes.map((item) => (
+                <div key={item} className="flex items-center gap-3.5">
+                  <CheckFilled />
+                  <span className="font-dm text-sm text-brand-title font-medium">{item}</span>
+                </div>
+              ))}
+            </div>
+
+            {/* CTA */}
+            <div className="text-center">
+              <a
+                href="https://wa.me/5551995449443?text=Olá!%20Gostaria%20de%20agendar%20minha%20avaliação%20gratuita%20com%20a%20Dra.%20Laura%20Gehlen."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-3 bg-brand-cta text-[#EAEAE5] font-dm font-medium tracking-wide text-sm px-8 md:px-12 py-4 rounded-full hover:bg-brand-contrast transition-all duration-300 hover:shadow-warm-lg hover:-translate-y-0.5 min-h-[52px] w-full sm:w-auto justify-center"
+              >
+                Agendar Avaliação Gratuita
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                  <path d="M3 8H13M9 4L13 8L9 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </a>
+              <p className="font-dm text-xs text-brand-body/90 mt-5 tracking-wide">
+                (51) 99544-9443 · R. Pres. Kenedy, 281, sala 311 · Sapiranga, RS
+              </p>
+            </div>
+          </motion.div>
+
+        </div>
+      </div>
+    </section>
+  )
+}

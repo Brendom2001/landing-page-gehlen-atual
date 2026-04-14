@@ -140,13 +140,13 @@ export default function HeroSection() {
             transition={{ duration: 1, ease: easing, delay: 0.2 }}
             className="relative w-full"
           >
-            <div className="relative aspect-[4/3] md:aspect-[4/5] max-w-md mx-auto lg:max-w-none">
+            <div className="relative aspect-[3/4] md:aspect-[4/5] max-w-sm mx-auto lg:max-w-none">
               {/* Image */}
               <div className="w-full h-full overflow-hidden rounded-2xl shadow-warm-xl">
                 <img
                   src="/hero-photo.jpg"
                   alt="Dra. Laura Gehlen — Odontologia Integrada em Sapiranga, RS"
-                  className="w-full h-full object-cover object-top"
+                  className="w-full h-full object-cover object-center"
                   loading="eager"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-brand-contrast/20 via-transparent to-transparent rounded-2xl" />

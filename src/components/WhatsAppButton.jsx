@@ -1,17 +1,40 @@
+import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 
 export default function WhatsAppButton() {
+  const [nearFooter, setNearFooter] = useState(false)
+  const [loaded, setLoaded] = useState(false)
+
+  useEffect(() => {
+    const footer = document.getElementById('footer')
+    if (!footer) return
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setNearFooter(entry.isIntersecting),
+      { threshold: 0 }
+    )
+
+    observer.observe(footer)
+    return () => observer.disconnect()
+  }, [])
+
   return (
     <motion.a
       href="https://wa.me/5551995449443?text=Olá!%20Gostaria%20de%20agendar%20uma%20avaliação%20com%20a%20Dra.%20Laura%20Gehlen."
       target="_blank"
       rel="noopener noreferrer"
       initial={{ opacity: 0, scale: 0.8 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.5, delay: 1.5, ease: [0.22, 1, 0.36, 1] }}
+      animate={{ opacity: nearFooter ? 0 : 1, scale: nearFooter ? 0.85 : 1, y: nearFooter ? 12 : 0 }}
+      transition={
+        loaded
+          ? { duration: 0.3, ease: 'easeInOut' }
+          : { duration: 0.5, delay: 1.5, ease: [0.22, 1, 0.36, 1] }
+      }
+      onAnimationComplete={() => setLoaded(true)}
       whileHover={{ scale: 1.1 }}
       whileTap={{ scale: 0.95 }}
       aria-label="Falar no WhatsApp"
+      style={{ pointerEvents: nearFooter ? 'none' : 'auto' }}
       className="hidden md:flex fixed bottom-6 right-6 z-40 w-14 h-14 bg-[#25D366] rounded-full shadow-[0_4px_24px_rgba(37,211,102,0.4)] items-center justify-center hover:bg-[#22c05c] transition-colors duration-300"
     >
       <svg className="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 24 24">

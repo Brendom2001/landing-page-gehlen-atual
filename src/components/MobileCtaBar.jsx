@@ -1,11 +1,34 @@
+import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 
 export default function MobileCtaBar() {
+  const [nearFooter, setNearFooter] = useState(false)
+  const [loaded, setLoaded] = useState(false)
+
+  useEffect(() => {
+    const footer = document.getElementById('footer')
+    if (!footer) return
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setNearFooter(entry.isIntersecting),
+      { threshold: 0 }
+    )
+
+    observer.observe(footer)
+    return () => observer.disconnect()
+  }, [])
+
   return (
     <motion.div
       initial={{ y: 80, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.6, delay: 1, ease: [0.22, 1, 0.36, 1] }}
+      animate={{ y: nearFooter ? 80 : 0, opacity: nearFooter ? 0 : 1 }}
+      transition={
+        loaded
+          ? { duration: 0.3, ease: 'easeInOut' }
+          : { duration: 0.6, delay: 1, ease: [0.22, 1, 0.36, 1] }
+      }
+      onAnimationComplete={() => setLoaded(true)}
+      style={{ pointerEvents: nearFooter ? 'none' : 'auto' }}
       className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-brand-bg border-t border-brand-section/60 px-5 py-3 shadow-[0_-4px_24px_rgba(120,97,74,0.12)]"
     >
       <a

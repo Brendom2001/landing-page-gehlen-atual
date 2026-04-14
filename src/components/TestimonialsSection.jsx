@@ -3,6 +3,16 @@ import { useAnimateOnce } from '../hooks/useAnimateOnce'
 
 const easing = [0.22, 1, 0.36, 1]
 
+const cardVariants = {
+  hidden: { opacity: 0, y: 32 },
+  visible: { opacity: 1, y: 0 },
+}
+
+const headerVariants = {
+  hidden: { opacity: 0, y: 24 },
+  visible: { opacity: 1, y: 0 },
+}
+
 const testimonials = [
   {
     quote: 'Recomento demais o trabalho dela e de toda a equipe!',
@@ -43,10 +53,11 @@ function TestimonialCard({ testimonial, index }) {
   return (
     <m.div
       ref={ref}
-      initial={{ opacity: 0, y: 32 }}
-      animate={visible ? { opacity: 1, y: 0 } : { opacity: 0, y: 32 }}
+      variants={cardVariants}
+      initial="hidden"
+      animate={visible ? 'visible' : 'hidden'}
       transition={{ duration: 0.65, ease: easing, delay: index * 0.12 }}
-      className="bg-brand-section/15 border border-brand-section/50 p-8 flex flex-col hover:border-brand-detail/60 hover:bg-brand-section/25 transition-all duration-300 rounded-xl"
+      className="bg-brand-section/15 border border-brand-section/50 p-8 flex flex-col hover:border-brand-detail/60 hover:bg-brand-section/25 transition-colors duration-300 rounded-xl"
     >
       <StarRow />
 
@@ -80,8 +91,9 @@ function SectionHeader() {
   return (
     <m.div
       ref={ref}
-      initial={{ opacity: 0, y: 24 }}
-      animate={visible ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
+      variants={headerVariants}
+      initial="hidden"
+      animate={visible ? 'visible' : 'hidden'}
       transition={{ duration: 0.7, ease: easing }}
       className="text-center mb-14"
     >

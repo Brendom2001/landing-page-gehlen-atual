@@ -3,6 +3,17 @@ import { useAnimateOnce } from '../hooks/useAnimateOnce'
 
 const easing = [0.22, 1, 0.36, 1]
 
+// Objetos estáveis fora do componente — framer-motion não re-anima ao receber o mesmo objeto
+const cardVariants = {
+  hidden: { opacity: 0, y: 32 },
+  visible: { opacity: 1, y: 0 },
+}
+
+const headerVariants = {
+  hidden: { opacity: 0, y: 24 },
+  visible: { opacity: 1, y: 0 },
+}
+
 const procedures = [
   {
     id: 1,
@@ -45,10 +56,11 @@ function ProcedureCard({ procedure, index }) {
   return (
     <m.article
       ref={ref}
-      initial={{ opacity: 0, y: 32 }}
-      animate={visible ? { opacity: 1, y: 0 } : { opacity: 0, y: 32 }}
+      variants={cardVariants}
+      initial="hidden"
+      animate={visible ? 'visible' : 'hidden'}
       transition={{ duration: 0.65, ease: easing, delay: index * 0.1 }}
-      className="group bg-[#EAEAE5] border border-brand-section/60 p-8 relative flex flex-col shadow-warm-sm hover:shadow-warm-lg transition-all duration-500 cursor-default"
+      className="group bg-[#EAEAE5] border border-brand-section/60 p-8 relative flex flex-col shadow-warm-sm hover:shadow-warm-lg transition-shadow duration-500 cursor-default"
     >
       {procedure.tag && (
         <div className="absolute top-0 right-8 -translate-y-1/2">
@@ -66,7 +78,7 @@ function ProcedureCard({ procedure, index }) {
         {procedure.name}
       </h3>
 
-      <div className="w-10 h-px bg-brand-cta/40 mb-5 group-hover:w-16 transition-all duration-500" />
+      <div className="w-10 h-px bg-brand-cta/40 mb-5 group-hover:w-16 transition-[width] duration-500" />
 
       <p className="font-dm text-sm text-brand-body/90 mb-3">
         <span className="font-semibold text-brand-title">Benefício: </span>
@@ -113,8 +125,9 @@ function SectionHeader() {
   return (
     <m.div
       ref={ref}
-      initial={{ opacity: 0, y: 24 }}
-      animate={visible ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
+      variants={headerVariants}
+      initial="hidden"
+      animate={visible ? 'visible' : 'hidden'}
       transition={{ duration: 0.7, ease: easing }}
       className="mb-16"
     >
